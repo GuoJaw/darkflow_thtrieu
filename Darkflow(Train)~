@@ -1,0 +1,62 @@
+
+二、测试
+[1]摄像头
+     ./flow --model cfg/yolo.cfg --load bin/yolo.weights   --demo camera  --threshold 0.5  --gpu 1.0
+[2]视频
+   ./flow --model cfg/yolo.cfg --load bin/yolo.weights  --threshold 0.5  --gpu 1.0 --demo MOT13.mp4
+
+   ./flow --model cfg/yolo.cfg --load bin/yolo.weights  --threshold 0.5  --gpu 1.0 --demo MOT13.mp4
+
+===============================================
+===============================================
+===============================================
+
+
+https://github.com/thtrieu/darkflow
+
+三、训练自己的数据
+（1）数据集准备：只需要Annotations    JPEGImages
+    data
+            Annotations
+            JPEGImages
+放在darkflow目录下。
+（2）模型训练
+说明，训练前的准备工作，特别令我恶心，TMD：
+    --batch   8           ####显存爆炸####
+
+[1]第一次训练：
+./flow --model cfg/yolo_kitti.cfg --load bin/yolo.weights --labels labels_kitti.txt --train --annotation data/Annotations --dataset data/JPEGImages --gpu 1.0 --batch 4
+
+[2]接着上一次停止的chechpoint节点继续开始训练：
+./flow --model cfg/yolo_kitti.cfg --load  -1 --labels labels_kitti.txt --train --annotation data/Annotations --dataset data/JPEGImages --gpu 1.0 --batch 4
+
+结果：训练的时候,会周期性地将模型保存到darkflow/ckpt/目录下
+
+（3）模型转换
+将训练生成的ckpt目录下的4个文件，转换成.pb和.meta文件
+./flow --model cfg/yolo_kitti.cfg --load  -1 --labels labels_kitti.txt --savepb
+
+(4)Test
+flow --pbLoad built_graph/yolo_kitti.pb --metaLoad built_graph/yolo_kitti.meta --labels labels_kitti.txt --imgdir sample_img/
+[1]摄像头
+     ./flow --pbLoad built_graph/yolo_kitti.pb --metaLoad built_graph/yolo_kitti.meta  --labels labels_kitti.txt --demo camera  --threshold 0.5  --gpu 1.0
+[2]视频
+   ./flow --pbLoad built_graph/yolo_kitti.pb --metaLoad built_graph/yolo_kitti.meta --labels labels_kitti.txt --demo MOT13.mp4  --threshold 0.5  --gpu 1.0
+
+
+===============================================
+===============================================
+===============================================
+
+
+
+
+===============================================
+
+pycharm单步调试
+
+点击甲壳虫进入debugger
+F8  ： 单步调试
+F9  ： 跳到下一个断点
+
+F4  ==  ctrl+鼠标左键  ：  跳到函数定义
