@@ -19,18 +19,20 @@
 
 ## 三、训练自己的数据
 
-     （1）数据集准备：只需要Annotations    JPEGImages
+    （1）数据集准备：只需要Annotations    JPEGImages
         drive
                 Annotations
                 JPEGImages
-    放在darkflow目录下。
-     （2）模型训练
+    放在darkflow目录下。
+    （2）模型训练
     说明，训练前的准备工作，特别令我恶心，TMD：
         --batch   8           ####显存爆炸####
+
     [1]第一次训练：
     ./flow --model cfg/yolo_drive.cfg --load bin/yolo.weights --labels labels_drive.txt --train --annotation data/Annotations --dataset data/JPEGImages --gpu 1.0 --batch 4
+
     [2]接着上一次停止的chechpoint节点继续开始训练：
-    ./flow --model cfg/yolo_drive.cfg --load  -1 --labels labels_eye.txt --train --annotation data/Annotations --dataset data/JPEGImages --gpu 1.0 --batch 8
+    ./flow --model cfg/yolo_drive.cfg --load  -1 --labels labels_drive.txt --train --annotation data/Annotations --dataset data/JPEGImages --gpu 1.0 --batch 4
 
     结果：训练的时候,会周期性地将模型保存到darkflow/ckpt/目录下
 
@@ -38,12 +40,14 @@
     将训练生成的ckpt目录下的4个文件，转换成.pb和.meta文件
     ./flow --model cfg/yolo_drive.cfg --load  -1 --labels labels_drive.txt --savepb 
 
-    (4)
-    [1]flow --pbLoad built_graph/yolo_drive.pb --metaLoad built_graph/yolo_drive.meta --labels labels_drive.txt --imgdir sample_img/
-    [2]摄像头
+    (4)Test
+    flow --pbLoad built_graph/yolo_drive.pb --metaLoad built_graph/yolo_drive.meta --labels labels_drive.txt --imgdir sample_img/
+    [1]摄像头
          ./flow --pbLoad built_graph/yolo_drive.pb --metaLoad built_graph/yolo_drive.meta  --labels labels_drive.txt --demo camera  --threshold 0.5  --gpu 1.0
-    [3]视频
-       ./flow --pbLoad built_graph/yolo_drive.pb --metaLoad built_graph/yolo_drive.meta --labels labels_drive.txt --demo MOT16-13.mp4  --threshold 0.5  --gpu 1.0
+    [2]视频
+       ./flow --pbLoad built_graph/yolo_drive.pb --metaLoad built_graph/yolo_drive.meta --labels labels_drive.txt --demo MOT13.mp4  --threshold 0.5  --gpu 1.0
+
+
        
 
 ## 四、测试精度darkflow（Yolov2）————mAP      https://github.com/Cartucho/mAP
