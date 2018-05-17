@@ -19,12 +19,12 @@
 
 ## 三、训练自己的数据
 
-# （1）数据集准备：只需要Annotations    JPEGImages
+     （1）数据集准备：只需要Annotations    JPEGImages
         drive
                 Annotations
                 JPEGImages
     放在darkflow目录下。
-# （2）模型训练
+     （2）模型训练
     说明，训练前的准备工作，特别令我恶心，TMD：
         --batch   8           ####显存爆炸####
     [1]第一次训练：
@@ -32,13 +32,13 @@
     [2]接着上一次停止的chechpoint节点继续开始训练：
     ./flow --model cfg/yolo_drive.cfg --load  -1 --labels labels_eye.txt --train --annotation data/Annotations --dataset data/JPEGImages --gpu 1.0 --batch 8
 
-#    结果：训练的时候,会周期性地将模型保存到darkflow/ckpt/目录下
+    结果：训练的时候,会周期性地将模型保存到darkflow/ckpt/目录下
 
-# （3）模型转换
+    （3）模型转换
     将训练生成的ckpt目录下的4个文件，转换成.pb和.meta文件
     ./flow --model cfg/yolo_drive.cfg --load  -1 --labels labels_drive.txt --savepb 
 
-# (4)
+    (4)
     [1]flow --pbLoad built_graph/yolo_drive.pb --metaLoad built_graph/yolo_drive.meta --labels labels_drive.txt --imgdir sample_img/
     [2]摄像头
          ./flow --pbLoad built_graph/yolo_drive.pb --metaLoad built_graph/yolo_drive.meta  --labels labels_drive.txt --demo camera  --threshold 0.5  --gpu 1.0
@@ -47,7 +47,7 @@
        
 
 ## 四、测试精度darkflow（Yolov2）————mAP      https://github.com/Cartucho/mAP
-# 【1】制作测试集：制作predicted
+    【1】制作测试集：制作predicted
     (1)
     darkflow:
         ./flow --pbLoad built_graph/yolo_drive.pb --metaLoad built_graph/yolo_drive.meta --labels labels_drive.txt --imgdir data/JPEGImages/ --json
@@ -63,7 +63,7 @@
         所有的*.json文件，都被转移到---->mAP/predicted/backup目录下
         在mAP/predicted/目录下生成*.txt
 
-# 【2】制作grouth-truth
+    【2】制作grouth-truth
     (1)darkflow-master/data/Annotations/*.xml ----> mAP/ground-truth/
     (2)
         cd mAP/extra
@@ -72,7 +72,7 @@
         所有的*.xml文件，都被转移到---->mAP/ground-truth/backup目录下
         在mAP/ground-truth/目录下生成*.txt
         
-# 【3】直接执行
+    【3】直接执行
         cd mAP
         python main.py
 
