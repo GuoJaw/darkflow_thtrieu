@@ -11,6 +11,10 @@
     pip install -e .
     pip install .
 
+    opencv
+        conda install -c https://conda.binstar.org/menpo opencv
+        conda install --channel https://conda.anaconda.org/menpo opencv3
+
 ## 二、测试
     [1]摄像头
          ./flow --model cfg/yolo.cfg --load bin/yolo.weights   --demo camera  --threshold 0.5  --gpu 1.0
