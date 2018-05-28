@@ -1,3 +1,23 @@
+CuDNNv6安装
+    (1)#
+    cd cuda/include
+    sudo cp cudnn.h /usr/local/cuda/include/
+
+    (2)# cd ../lib64
+    sudo cp lib* /usr/local/cuda/lib64/
+    cd /usr/local/cuda/lib64/
+    (3)删除cudnn
+    sudo rm -rf libcudnn.so libcudnn.so.*
+    (4)重新软连接
+    sudo ln -s libcudnn.so.6 libcudnn.so
+    (5)更改权限
+    sudo chmod a+x /usr/local/cuda/include/cudnn.h  /usr/local/cuda/lib64/libcudnn*
+
+1.安装Tensorflow（清华镜像）
+	pip install -i https://pypi.tuna.tsinghua.edu.cn/simple/ https://mirrors.tuna.tsinghua.edu.cn/tensorflow/linux/gpu/tensorflow_gpu-1.4.0-cp27-none-linux_x86_64.whl
+
+
+
 ## Intro
 
     本程序用来训练yolo2模型，进行多目标检测
