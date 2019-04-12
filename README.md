@@ -15,6 +15,9 @@ CuDNNv6安装
 
 	1.安装Tensorflow（清华镜像）
 		pip install -i https://pypi.tuna.tsinghua.edu.cn/simple/ https://mirrors.tuna.tsinghua.edu.cn/tensorflow/linux/gpu/tensorflow_gpu-1.4.0-cp27-none-linux_x86_64.whl
+		
+		pip3 install -i https://pypi.tuna.tsinghua.edu.cn/simple/ https://mirrors.tuna.tsinghua.edu.cn/tensorflow/linux/gpu/tensorflow_gpu-1.0.0-cp35-cp35m-linux_x86_64.whl
+
 	
 	【问题】导入tensorflow时报警告
 	>>> import tensorflow
